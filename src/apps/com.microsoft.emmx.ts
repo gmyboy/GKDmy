@@ -1,0 +1,123 @@
+import { defineGkdApp } from '@gkd-kit/define';
+
+export default defineGkdApp({
+  id: 'com.microsoft.emmx',
+  name: 'Edge',
+  groups: [
+    {
+      key: 3,
+      name: '权限提示-通知权限',
+      matchTime: 10000,
+      actionMaximum: 1,
+      resetMatch: 'app',
+      fastQuery: true,
+      rules: [
+        {
+          activityIds: 'org.chromium.chrome.browser.ChromeTabbedActivity',
+          matches: '[text="允许通知"] + [text="不，谢谢"]',
+          snapshotUrls: 'https://i.gkd.li/i/13646187',
+        },
+      ],
+    },
+    {
+      key: 4,
+      name: '功能类-[关闭所有标签？]弹窗',
+      desc: '点击[确定]',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: 'org.chromium.chrome.browser.ChromeTabbedActivity',
+          matches: '[text="关闭所有标签页?"] + * > [text="确定"]',
+          exampleUrls:
+            'https://m.gkd.li/57941037/487f4236-676c-4fb3-bcac-17b4644edd46',
+          snapshotUrls: 'https://i.gkd.li/i/14325653',
+        },
+      ],
+    },
+    {
+      key: 5,
+      name: '功能类-关闭标签页',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: 'org.chromium.chrome.browser.ChromeTabbedActivity',
+          matches: '[text="关闭标签页"]',
+          exampleUrls:
+            'https://m.gkd.li/57941037/81f9a737-a111-4630-898b-4f2b5de0623b',
+          snapshotUrls: 'https://i.gkd.li/i/14614992',
+        },
+      ],
+    },
+    {
+      key: 6,
+      name: '功能类-[前往CSDN APP阅读全文]弹窗',
+      desc: '点击[继续]',
+      rules: [
+        {
+          activityIds: 'org.chromium.chrome.browser.ChromeTabbedActivity',
+          matches:
+            '[text="前往CSDN APP阅读全文"] < * > [desc="继续"][clickable=true]',
+          exampleUrls:
+            'https://m.gkd.li/57941037/fea75b5a-010d-4f67-8998-6cf794eda975',
+          snapshotUrls: 'https://i.gkd.li/i/14610025',
+        },
+      ],
+    },
+    {
+      key: 7,
+      name: '功能类-自动打开外部应用',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: 'org.chromium.chrome.browser.ChromeTabbedActivity',
+          matches:
+            '[text*="想要打开外部应用" || text*="想要開啟外部應用"][visibleToUser=true] +2 [childCount=3] > [vid="button1"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/27094149',
+            'https://i.gkd.li/i/27301310',
+          ],
+          exampleUrls: [
+            'https://e.gkd.li/69bfe8dd-80c6-41c9-9f8c-35d214ebcac8',
+            'https://e.gkd.li/ef904338-6c7a-4939-9333-dde30089f409',
+          ],
+        },
+      ],
+    },
+    {
+      key: 8,
+      name: '功能类-分享预览页选择在 Edge 中打开',
+      desc: '在 Edge Drop 分享预览页中，自动点击「在 Edge 中打开」选项',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds:
+            'org.chromium.chrome.browser.edge_hub.e_drop.ui.EDropSharePreviewActivity',
+          matches:
+            '@[vid="ms_layout_drop_send_link"][clickable=true] > [text="在 Edge 中打开" || text="在 Edge 中開啟"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/27327732',
+            'https://i.gkd.li/i/27328349',
+          ],
+          exampleUrls: [
+            'https://e.gkd.li/be567e4a-059c-4ba8-b825-77fcb3c93831',
+            'https://e.gkd.li/07e82326-38a4-4742-bf54-ed24b7769f0c',
+          ],
+        },
+      ],
+    },
+    {
+      key: 9,
+      name: '功能类-自动确认下载',
+      desc: '自动点击下载弹窗中的[下载]按钮',
+      fastQuery: true,
+      rules: [
+        {
+          matches:
+            '[text*="下载" || text*="下載" || text*="download"][visibleToUser=true] +2 [childCount=3] > [vid="button1"]',
+          snapshotUrls: 'https://i.gkd.li/i/30865007', //下载
+          exampleUrls: 'https://e.gkd.li/df8b81cd-1bfa-402a-a317-610f9d713674',
+        },
+      ],
+    },
+  ],
+});
