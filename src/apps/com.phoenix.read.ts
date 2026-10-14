@@ -76,6 +76,7 @@ export default defineGkdApp({
         {
           key: 3,
           name: '③5秒[上滑]1次',
+          matchRoot: true,
           actionCd: 4000,
           actionDelay: 1000,
           versionCode: { minimum: 72933 }, // 排除版本小于等于 7.2.9.32 的
