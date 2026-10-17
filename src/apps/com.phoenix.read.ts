@@ -99,10 +99,17 @@ export default defineGkdApp({
             '@TextView[visibleToUser=false][width>2000][height>40] <8 [childCount=8] <<n [vid="fragment_container"]',
             '[vid="root_view"][visibleToUser=false][width=0] <n FrameLayout + FrameLayout[visibleToUser=true] >2 ComposeView[visibleToUser=true]', // 播放页已隐藏，相邻详情页可见
           ],
-          matches: '[text="选集"][visibleToUser=false]',
+          // 竖屏要求播放容器可见；横屏必须出现可见广告标识，避免仅凭排除条件判断。
+          matches:
+            '([text="选集"][visibleToUser=false] <<n [vid="root_view"][visibleToUser=true][width>0]) || ([desc="广告"][visibleToUser=true] <<n [vid="fragment_container"][width>height])',
+          snapshotUrls: [
+            'https://i.gkd.li/i/33599339', // 横屏广告
+            'https://i.gkd.li/i/33599385', // 竖屏广告
+          ],
           excludeSnapshotUrls: [
             'https://i.gkd.li/i/32683026', // v7.2.9.32 ,全屏时,还存在可快查的备案号节点 [text*="剧备字"][height>0]
             'https://i.gkd.li/i/33289353', // v7.3.9.32 ,全屏时,该备案号节点 [text=null]
+            'https://i.gkd.li/i/33599318', // 横屏正常短剧，无可见广告标识
             'https://i.gkd.li/i/33596860', // 短剧详情/剧评页
           ],
         },
