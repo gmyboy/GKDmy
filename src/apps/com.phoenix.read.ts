@@ -52,8 +52,10 @@ export default defineGkdApp({
             },
             duration: 200,
           },
-          excludeMatches:
+          excludeMatches: [
             '([text="选集"][visibleToUser=true]) || ([text*="剧备字"][height>0])',
+            '[vid="root_view"][visibleToUser=false][width=0] <n FrameLayout + FrameLayout[visibleToUser=true] >2 ComposeView[visibleToUser=true]', // 播放页已隐藏，相邻详情页可见
+          ],
           matches: '[text="选集"][visibleToUser=false]',
           snapshotUrls: [
             'https://i.gkd.li/i/32429827', //A [直播间]
@@ -65,6 +67,7 @@ export default defineGkdApp({
             'https://i.gkd.li/i/32434872', //B 横屏 [网微剧备字] 当前视频存在备案号时(即表示不是广告),停止匹配
             'https://i.gkd.li/i/32683026', //B 横屏 同上
             'https://i.gkd.li/i/33193929', //B 横屏 [微短剧备字]
+            'https://i.gkd.li/i/33596860', // 短剧详情/剧评页
           ],
           exampleUrls: [
             'https://e.gkd.li/0128820c-4e8d-44ed-9ebc-ef2d5a062e26',
@@ -94,11 +97,13 @@ export default defineGkdApp({
           excludeMatches: [
             '([text="选集"][visibleToUser=true]) || ([text*="剧备字"][height>0])',
             '@TextView[visibleToUser=false][width>2000][height>40] <8 [childCount=8] <<n [vid="fragment_container"]',
+            '[vid="root_view"][visibleToUser=false][width=0] <n FrameLayout + FrameLayout[visibleToUser=true] >2 ComposeView[visibleToUser=true]', // 播放页已隐藏，相邻详情页可见
           ],
           matches: '[text="选集"][visibleToUser=false]',
           excludeSnapshotUrls: [
             'https://i.gkd.li/i/32683026', // v7.2.9.32 ,全屏时,还存在可快查的备案号节点 [text*="剧备字"][height>0]
             'https://i.gkd.li/i/33289353', // v7.3.9.32 ,全屏时,该备案号节点 [text=null]
+            'https://i.gkd.li/i/33596860', // 短剧详情/剧评页
           ],
         },
       ],
