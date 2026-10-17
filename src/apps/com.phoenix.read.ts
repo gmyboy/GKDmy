@@ -80,6 +80,7 @@ export default defineGkdApp({
         {
           key: 3,
           name: '③5秒[上滑]1次',
+          matchRoot: true, // 从根节点定位播放容器，避免广告子节点事件导致漏匹配
           actionCd: 4000,
           actionDelay: 1000,
           versionCode: { minimum: 72933 }, // 排除版本小于等于 7.2.9.32 的
@@ -104,6 +105,7 @@ export default defineGkdApp({
             '([text="选集"][visibleToUser=false] <<n [vid="root_view"][visibleToUser=true][width>0]) || ([desc="广告"][visibleToUser=true] <<n [vid="fragment_container"][width>height])',
           snapshotUrls: [
             'https://i.gkd.li/i/33599339', // 横屏广告
+            'https://i.gkd.li/i/33599958', // 横屏广告，需从根节点定位播放容器
             'https://i.gkd.li/i/33599385', // 竖屏广告
           ],
           excludeSnapshotUrls: [
