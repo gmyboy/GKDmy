@@ -18,7 +18,7 @@ apps.forEach((appConfig) => {
 export default defineGkdSubscription({
   id: 1,
   name: 'GMY的GKD订阅',
-  version: 3,
+  version: 612,
   author: 'gmy',
   checkUpdateUrl: './gkd.version.json5',
   supportUri: 'https://github.com/gmyboy/GKDmy/issues/new/choose',
