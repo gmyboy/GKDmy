@@ -29,7 +29,10 @@ export default defineGkdApp({
             },
             duration: 200, //滑动时长
           },
-          matches: '[text="上滑继续观看短剧"][visibleToUser=true]',
+          matches: [
+            '[text="上滑继续观看短剧"][visibleToUser=true]',
+            '[text="上滑继续看短剧"][visibleToUser=true]',
+          ],
           snapshotUrls: 'https://i.gkd.li/i/32430183', //A
           excludeSnapshotUrls: 'https://i.gkd.li/i/32430193', //A 倒计时未结束
           exampleUrls: 'https://e.gkd.li/248c4c7b-469c-459b-a489-23c123f35766',
