@@ -803,7 +803,6 @@ export default defineGkdApp({
           matches: [
             '[text$="本场点赞"][visibleToUser=true]',
             'EditText[text="说点什么..."][visibleToUser=true]',
-            '[desc="小心心"][clickable=true][visibleToUser=true]',
           ],
           snapshotUrls: 'https://i.gkd.li/i/33627981',
         },
