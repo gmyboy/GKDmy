@@ -784,5 +784,30 @@ export default defineGkdApp({
         },
       ],
     },
+    {
+      key: 39,
+      name: '功能类-直播间连续点赞',
+      desc: '在直播间持续点击屏幕正中央，点击冷却100毫秒，实际速度取决于设备和GKD调度；关闭此规则组或退出直播间可停止',
+      enable: false,
+      rules: [
+        {
+          fastQuery: true,
+          matchRoot: true,
+          actionCd: 100,
+          activityIds: '.live.LivePlayActivity',
+          action: 'clickCenter',
+          position: {
+            x: 'screenWidth/2',
+            y: 'screenHeight/2',
+          },
+          matches: [
+            '[text$="本场点赞"][visibleToUser=true]',
+            'EditText[text="说点什么..."][visibleToUser=true]',
+            '[desc="小心心"][clickable=true][visibleToUser=true]',
+          ],
+          snapshotUrls: 'https://i.gkd.li/i/33627981',
+        },
+      ],
+    },
   ],
 });
