@@ -787,7 +787,7 @@ export default defineGkdApp({
     {
       key: 39,
       name: '功能类-直播间连续点赞',
-      desc: '在直播间持续点击屏幕正中央，点击冷却100毫秒，实际速度取决于设备和GKD调度；关闭此规则组或退出直播间可停止',
+      desc: '直播间持续点赞，进入播间开启退出播间停止',
       enable: false,
       rules: [
         {
