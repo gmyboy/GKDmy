@@ -265,6 +265,22 @@ export default defineGkdApp({
       ],
     },
     {
+      key: 18,
+      name: '权限提示-录音权限',
+      desc: '点击[以后再说]',
+      actionMaximum: 1,
+      resetMatch: 'app',
+      rules: [
+        {
+          fastQuery: true,
+          activityIds: '.shortvideo.ui.VideoRecordNewActivity',
+          matches: ['[text*="录音权限"]', '[text="以后再说"][clickable=true]'],
+          snapshotUrls: 'https://i.gkd.li/i/33711183',
+          exampleUrls: 'https://e.gkd.li/93eb4fd6-01d4-42d8-b179-e2af6430be5f',
+        },
+      ],
+    },
+    {
       key: 19,
       name: '权限提示-通讯录权限',
       desc: '点击[拒绝]',
@@ -572,9 +588,16 @@ export default defineGkdApp({
       rules: [
         {
           fastQuery: true,
-          activityIds: '.shortvideo.ui.scan.ScanNewActivity',
+          activityIds: [
+            '.shortvideo.ui.scan.ScanNewActivity',
+            '.shortvideo.ui.VideoRecordNewActivity',
+          ],
           matches: ['[text*="相机权限"]', '[text="以后再说"][clickable=true]'],
-          snapshotUrls: 'https://i.gkd.li/i/25183382',
+          snapshotUrls: [
+            'https://i.gkd.li/i/25183382',
+            'https://i.gkd.li/i/33711202',
+          ],
+          exampleUrls: 'https://e.gkd.li/d96ef7c1-1f24-43fd-9190-76764dae2bc3',
         },
       ],
     },
@@ -786,6 +809,26 @@ export default defineGkdApp({
     },
     {
       key: 39,
+      name: '功能类-横屏直播时自动[关闭]弹幕',
+      desc: '点击1次[关闭弹幕]图标',
+      rules: [
+        {
+          fastQuery: true,
+          actionMaximum: 1,
+          activityIds: ['.live.LivePlayActivity', '.detail.ui.DetailActivity'],
+          matches:
+            '@[desc="关闭弹幕"] < [childCount=2] + * > [text="发弹幕说点什么…"]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/33672005', //横屏
+            'https://i.gkd.li/i/33672759', //横屏 [visibleToUser=false]
+          ],
+          excludeSnapshotUrls: 'https://i.gkd.li/i/33672707', //竖屏
+          exampleUrls: 'https://e.gkd.li/27cd54c6-0398-4e01-8b42-9fd9b963c514',
+        },
+      ],
+    },
+    {
+      key: 40,
       name: '功能类-直播间连续点赞',
       desc: '直播间持续点赞，进入播间开启退出播间停止',
       enable: false,
