@@ -18,6 +18,7 @@ export default defineGkdApp({
         {
           key: 1,
           name: '①读秒结束后[上滑]',
+          matchRoot: true,
           swipeArg: {
             start: {
               x: 'screenWidth/2',
@@ -29,7 +30,8 @@ export default defineGkdApp({
             },
             duration: 200, //滑动时长
           },
-          matches: '[text="上滑继续观看短剧"][visibleToUser=true]',
+          matches:
+            '[text="上滑继续观看短剧" || text="上滑继续观看剧集"][visibleToUser=true]',
           snapshotUrls: 'https://i.gkd.li/i/32430183', //A
           excludeSnapshotUrls: 'https://i.gkd.li/i/32430193', //A 倒计时未结束
           exampleUrls: 'https://e.gkd.li/248c4c7b-469c-459b-a489-23c123f35766',
@@ -53,6 +55,7 @@ export default defineGkdApp({
             duration: 200,
           },
           excludeMatches: [
+            '[text*="后可继续上滑观看" || text*="秒后可继续上滑"][visibleToUser=true]',
             '([text="选集"][visibleToUser=true]) || ([text*="剧备字"][height>0])',
             '[vid="root_view"][visibleToUser=false][width=0] <n FrameLayout + FrameLayout[visibleToUser=true] >2 ComposeView[visibleToUser=true]', // 播放页已隐藏，相邻详情页可见
           ],
@@ -79,7 +82,7 @@ export default defineGkdApp({
         // 作为 key2 的补充, 即 7.2.9.32 以上的版本由key3负责
         {
           key: 3,
-          name: '③5秒[上滑]1次',
+          name: '③竖屏5秒[上滑]1次',
           matchRoot: true, // 从根节点定位播放容器，避免广告子节点事件导致漏匹配
           actionCd: 4000,
           actionDelay: 1000,
@@ -96,16 +99,14 @@ export default defineGkdApp({
             duration: 200,
           },
           excludeMatches: [
+            '[text*="后可继续上滑观看" || text*="秒后可继续上滑"][visibleToUser=true]',
             '([text="选集"][visibleToUser=true]) || ([text*="剧备字"][height>0])',
             '@TextView[visibleToUser=false][width>2000][height>40] <8 [childCount=8] <<n [vid="fragment_container"]',
             '[vid="root_view"][visibleToUser=false][width=0] <n FrameLayout + FrameLayout[visibleToUser=true] >2 ComposeView[visibleToUser=true]', // 播放页已隐藏，相邻详情页可见
           ],
-          // 竖屏要求播放容器可见；横屏必须出现可见广告标识，避免仅凭排除条件判断。
           matches:
-            '([text="选集"][visibleToUser=false] <<n [vid="root_view"][visibleToUser=true][width>0]) || ([desc="广告"][visibleToUser=true] <<n [vid="fragment_container"][width>height])',
+            '[text="选集"][visibleToUser=false] <<n [vid="root_view"][visibleToUser=true][width>0]',
           snapshotUrls: [
-            'https://i.gkd.li/i/33599339', // 横屏广告
-            'https://i.gkd.li/i/33599958', // 横屏广告，需从根节点定位播放容器
             'https://i.gkd.li/i/33599385', // 竖屏广告
           ],
           excludeSnapshotUrls: [
@@ -113,6 +114,49 @@ export default defineGkdApp({
             'https://i.gkd.li/i/33289353', // v7.3.9.32 ,全屏时,该备案号节点 [text=null]
             'https://i.gkd.li/i/33599318', // 横屏正常短剧，无可见广告标识
             'https://i.gkd.li/i/33596860', // 短剧详情/剧评页
+          ],
+        },
+        {
+          key: 4,
+          name: '④横屏读秒结束后[上滑]',
+          activityIds:
+            'com.dragon.read.component.shortvideo.impl.fullscreen.ShortSeriesLandActivity',
+          matchRoot: true,
+          forcedTime: 2147483647, // 横屏倒计时不一定发送无障碍事件，保持主动查询
+          actionCd: 4000,
+          actionDelay: 1000,
+          versionCode: { minimum: 72933 },
+          swipeArg: {
+            start: {
+              x: 'screenWidth/2',
+              y: 'screenHeight * 0.7',
+            },
+            end: {
+              x: 'screenWidth/2',
+              y: 'screenHeight * 0.3',
+            },
+            duration: 200,
+          },
+          excludeMatches: [
+            '([text="选集"][visibleToUser=true]) || ([text*="剧备字"][height>0])',
+            '@TextView[visibleToUser=false][width>2000][height>40] <8 [childCount=8] <<n [vid="fragment_container"]',
+            '[vid="root_view"][visibleToUser=false][width=0] <n FrameLayout + FrameLayout[visibleToUser=true] >2 ComposeView[visibleToUser=true]',
+          ],
+          // 提示文字未暴露到节点；结束时提示框宽高比约 4.94，读秒时约 4.84。
+          // 使用比例适配缩放，并限定在横屏播放容器中广告标识左侧的提示框。
+          matches:
+            '[desc="广告"][visibleToUser=true] < ViewGroup[childCount=2] - ViewGroup[childCount=0][text=null][desc=null][visibleToUser=true][width.times(10)>height.times(49) && width<height.times(5)] <<n [vid="fragment_container"][width>height]',
+          snapshotUrls: [
+            'https://i.gkd.li/i/33599339',
+            'https://i.gkd.li/i/33599958',
+            'https://i.gkd.li/i/33897985',
+          ],
+          excludeSnapshotUrls: [
+            'https://i.gkd.li/i/33898204', // 倒计时未结束
+            'https://i.gkd.li/i/32683026',
+            'https://i.gkd.li/i/33289353',
+            'https://i.gkd.li/i/33599318',
+            'https://i.gkd.li/i/33596860',
           ],
         },
       ],
